@@ -1,0 +1,102 @@
+﻿
+.datagrid {
+    border-style:solid;border-width:1px;border-color:#D0D0D0;overflow:hidden;
+}
+.datagrid table {
+    table-layout:fixed;border-collapse:collapse;font-family:Tahoma;font-size:8pt;color:#404080;border:solid 1px #D0D0D0;
+}
+.datagrid table tr {
+    cursor:pointer;font-weight:bold;color:#404080;background-image:url('Blue-Grad.bmp');text-align:center;
+}
+.datagrid table tr td {
+    border-right-style:solid;border-right-width:1px;border-right-color:#D0D0D0;
+}
+
+.datagrid-con {
+    background-color:#D0D0D0;border-style:solid;border-width:1px;border-color:#D0D0D0;overflow:auto;
+}
+
+.datagrid-con table {
+   table-layout:fixed;border-collapse:collapse;border:solid 1px #D0D0D0;font-family:Tahoma;font-size:8pt;
+}
+
+.datagrid-con table tr:nth-child(odd){ background-color:#fff; }
+.datagrid-con table tr:nth-child(even){ background-color:#F8F8F8; }
+    
+.datagrid-con table td{
+    border:solid 1px #D0D0D0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:2px;color:#4040FF;text-align:left;
+
+
+}
+
+.datagrid-ftr {
+    float:right;width:500px;height:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:Tahoma;font-size:8pt;border-style:solid;border-width:2px;padding:2px;margin:2px;border-color:#D0D0D0;color:#404040;background-color:#F8F8F8;
+}
+
+.ui-datepicker{font-size: 62.5%;}
+
+
+.ui-dialog-title{
+    font-size: 80% !important;
+}
+
+.ui-dialog-titlebar { height: 1em; }
+
+.ui-dialog {
+    font-size: 78.5% !important;
+}
+
+.del-icon {
+    background-image:url('delete.png');
+    height:16px;
+    width:16px;
+    cursor:pointer;
+    background-repeat: no-repeat;
+    background-position:center; 
+}
+div.ui-datepicker{
+ font-size:10px;
+}
+
+
+.datagrid-con .cellEditing {
+    padding: 0;
+}
+
+.datagrid-con .cellEditing input[type=text]{
+    width:100%;
+    border:0;
+    background-color:rgb(255,253,210); 
+}
+
+.datagrid-con select,input{
+    font-size:8pt;font-family:Tahoma;
+    outline: none;
+    }
+
+
+.datagrid-con select{
+    width:100%;
+    outline: none;
+    }
+
+.hasTooltip span {
+    display: none;
+    color: #000;
+    text-decoration: none;
+    padding: 3px;
+}
+
+
+.hasTooltip span.active {
+    display: block;
+    position: absolute;
+    background-color: #fbb3b3;
+    border: 1px solid #ff6a00;
+    margin: -40px 10px;
+}
+
+.val-wrong {
+    border: 2px solid #FF0000 !important;
+    border-right-color: #ccc !important;
+}
