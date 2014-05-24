@@ -1,102 +1,97 @@
-﻿
-.datagrid {
-    border-style:solid;border-width:1px;border-color:#D0D0D0;overflow:hidden;
-}
-.datagrid table {
-    table-layout:fixed;border-collapse:collapse;font-family:Tahoma;font-size:8pt;color:#404080;border:solid 1px #D0D0D0;
-}
-.datagrid table tr {
-    cursor:pointer;font-weight:bold;color:#404080;background-image:url('Blue-Grad.bmp');text-align:center;
-}
-.datagrid table tr td {
-    border-right-style:solid;border-right-width:1px;border-right-color:#D0D0D0;
-}
+﻿  .datagrid {
+        overflow-x:hidden;  
+        /*border:solid 1px #D0D0D0;*/ /*to be removed*/
 
-.datagrid-con {
-    background-color:#D0D0D0;border-style:solid;border-width:1px;border-color:#D0D0D0;overflow:auto;
-}
+        border-style:solid;border-width:1px;border-color:#D0D0D0;
+        }
 
-.datagrid-con table {
-   table-layout:fixed;border-collapse:collapse;border:solid 1px #D0D0D0;font-family:Tahoma;font-size:8pt;
+            .datagrid table {
+            table-layout:fixed;
+            border-collapse:collapse;
+
+            font-family:Tahoma;font-size:8pt;color:#404080;
+            border:solid 1px #D0D0D0;
+            }
+
+               .datagrid table tr td {
+    border-right-style:solid;border-right-width:1px;border-right-color:#D0D0D0;text-align:center;cursor:pointer;font-weight:bold;background-color:#F7F6FF;
+    box-shadow: 0px 0px 1px #D0D0D0 inset;   
 }
 
-.datagrid-con table tr:nth-child(odd){ background-color:#fff; }
-.datagrid-con table tr:nth-child(even){ background-color:#F8F8F8; }
-    
-.datagrid-con table td{
-    border:solid 1px #D0D0D0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:2px;color:#4040FF;text-align:left;
+        .datagrid-con {
+        overflow-y:auto;  
+        overflow-x:auto;
+        /*border:solid 1px #D0D0D0;*/ /*to be removed*/
 
+         border-style:solid;border-width:1px;border-color:#D0D0D0;
+        }
+
+        .datagrid-con table{
+        table-layout:fixed;
+        border-collapse:collapse;
+
+        font-family:Tahoma;font-size:8pt;color:#404080;
+        border:solid 1px #D0D0D0;
+        }
+
+          .datagrid-con table tr{
+    height:22px;
+}
+            .datagrid-con table tr td {
+    border:solid 1px #D0D0D0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#4040FF;text-align:left;
+    /*padding-left:2px;*/
 
 }
 
-.datagrid-ftr {
-    float:right;width:500px;height:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:Tahoma;font-size:8pt;border-style:solid;border-width:2px;padding:2px;margin:2px;border-color:#D0D0D0;color:#404040;background-color:#F8F8F8;
+            .datagrid-con select {
+    width:100% !important;
+
 }
+.datagrid-con table tr:nth-child(odd){ background-color:#FEFEFE; }
+.datagrid-con table tr:nth-child(even){ background-color:#F9F9F9; }
+.datagrid-con table tr td:first-child{ background-color:#F7F6FF;border:solid 1px #D0D0D0;cursor:pointer;color:blue;text-align:center; 
+      box-shadow: -1px 2px 3px #D0D0D0 inset;                                 
 
-.ui-datepicker{font-size: 62.5%;}
-
-
-.ui-dialog-title{
-    font-size: 80% !important;
 }
+.datagrid-con table tr:first-child{ height:1px; }
 
-.ui-dialog-titlebar { height: 1em; }
+     .selected-tr {
+            background-color:#DBDBDB !important;
+        }
 
-.ui-dialog {
-    font-size: 78.5% !important;
-}
-
-.del-icon {
-    background-image:url('delete.png');
-    height:16px;
-    width:16px;
-    cursor:pointer;
-    background-repeat: no-repeat;
-    background-position:center; 
-}
-div.ui-datepicker{
- font-size:10px;
-}
-
-
-.datagrid-con .cellEditing {
-    padding: 0;
-}
-
-.datagrid-con .cellEditing input[type=text]{
+          .cellEditing input[type=text],.drop-ind{
     width:100%;
     border:0;
-    background-color:rgb(255,253,210); 
+    /*height:inherit;*/
+    height:17px;
+    background-color:inherit;
+    font-family:inherit;
+    font-size:inherit;
+    color:inherit;
+    outline:none;
+    /*background-color:rgb(255,253,210);*/  /*to be removed*/
 }
 
-.datagrid-con select,input{
-    font-size:8pt;font-family:Tahoma;
-    outline: none;
-    }
+          
+        .data-is-wrong{
+ background-color:rgb(255,253,210);
+ background-image:url('../images/comment.gif');
+ background-repeat:no-repeat;background-position:top right;
+ cursor:pointer;
+}
 
-
-.datagrid-con select{
-    width:100%;
-    outline: none;
-    }
-
-.hasTooltip span {
-    display: none;
-    color: #000;
-    text-decoration: none;
-    padding: 3px;
+.drop-dropAtt {
+text-align:center !important;
 }
 
 
-.hasTooltip span.active {
-    display: block;
-    position: absolute;
-    background-color: #fbb3b3;
-    border: 1px solid #ff6a00;
-    margin: -40px 10px;
+#attend-tab-ttab [cid=c0]{
+color:blue !important;
+}
+#attend-tab-ttab [cid=c9],[cid=c11],[cid=c12]{
+color:black !important;
+}
+ #attend-tab-ttab [cid=c1],[cid=c2],[cid=c3],[cid=c4],[cid=c5],[cid=c6],[cid=c7],[cid=c8],[cid=c10],[cid=c13],[cid=c14]{
+color:red !important;
 }
 
-.val-wrong {
-    border: 2px solid #FF0000 !important;
-    border-right-color: #ccc !important;
-}
