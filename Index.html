@@ -32,35 +32,38 @@
             
 
             var table1_settings = {
-                width: 350,
-                height: 100,
+                width: 300,
+                height: 300,
                 table: "LoadStatus",
+                config: { type: ["text","note","date","drop"]},
                 columns: [
-                    { width: 80, header: "Date", map: "Date", mask: "Shortname", id: "Person", align: "center", edit: true },
-                    { width: 80, header: "Status", map: "Status", edit: false },
-                    { width: 100, header: "Note", map: "Note", edit: true }
+                    { width: 80, header: "Date", map: "Date", mask: "Shortname", id: "Person", align: "center", edit: true, type: "text" },
+                    { width: 80, header: "Status", map: "Status", edit: true, type: "text" },
+                    { width: 100, header: "Note", map: "Note", edit: true,type:"text" }
                 ]
             };
 
             var table2_settings = {
-                width: 300,
+                width: 400,
                 height: 100,
+                table: "LoadStatus",
+                config: { type: ["text", "note", "date", "drop"] },
                 columns: [
-                    { width: 80, header: "Date", map: "", mask: "" },
-                    { width: 80, header: "Status", map: "" },
-                    { width: 100, header: "Note", map: "" }
+                    { width: 80, header: "Date", map: "Date", mask: "Shortname", id: "Person", align: "center", edit: true, type: "text" },
+                    { width: 80, header: "Status", map: "Status", edit: true, type: "text" },
+                    { width: 100, header: "Note", map: "Note", edit: true, type: "text" }
                 ]
             };
 
             $("#table1").jaccess(table1_settings);
             $("#table1").jaccess(table1_settings).load(data);
-            //$("#table1").jaccess(table1_settings).load();
-            //$("#table1").jaccess().load();
+            //$("#table2").jaccess(table2_settings);
+           // $("#table2").jaccess(table2_settings).load(data);
 
 
-            $(".datagrid-con").scroll(function () {
-                $(".datagrid").scrollLeft($(this).scrollLeft());
-            });
+            //$(".datagrid-con").scroll(function () {
+               // $(".datagrid").scrollLeft($(this).scrollLeft());
+           // });
         });
 
 
