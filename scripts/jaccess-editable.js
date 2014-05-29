@@ -18,6 +18,7 @@
     $.fn.jaccess = function (options) {
         var self__ = this;
         var indicator = true;
+        var d = {};
         if (options) {
             var height = options.height,
             width = options.width,
@@ -64,7 +65,22 @@
         ///////////////////////collect data/////////////////////////////////////////////////
 
         var CollectData = function (t) {
-            console.log(t.html());
+            t.find('td').each(function (index) {
+                var self = $(this);
+                if (index > 0) {
+                    d["d" + index] = {
+                        e: self.hasClass("edited-td"),
+                        i: index,
+                        m: (self.data("map") ? self.data("map") : null),
+                        v: self.text(),
+                       ex: (self.data("ext") ? self.data("ext") : null)
+                    };
+                }
+            });
+            d["p"] = (t.attr("id")?t.attr("id"):null);
+            d["n"] = t.hasClass("lasttr");
+            d["t"] = t.parent().parent().attr("id");
+            console.log(d);
         }
         ///////////////////////handler/////////////////////////////////////////
         var handler = function () {
@@ -83,7 +99,7 @@
             if (self_.hasClass("tbl-header-sort"))//sort
             {
                 console.log("header is clicked");
-                //return;
+                return;
             }
 
 
@@ -96,7 +112,7 @@
                 table.find(".drop-ind")
                             .parent()
                             .data("map", lastdropid)
-                            .html(lastdrop);
+                            .text(lastdrop);
 
                 if (table.find("tr:last").index() != index_tr)
                 if (self_.parent().hasClass("selected-tr")) {
@@ -105,7 +121,7 @@
                     table.find("tr").removeClass("selected-tr");
                     self_.parent().addClass("selected-tr");
                 }
-                //return;
+                return;
             }
 
             if (options.columns[index_td - 1].edit) //editable td
@@ -324,7 +340,7 @@
                     count++;
                 }
 
-                item.push("<tr><td>*</td>");
+                item.push("<tr class='lasttr'><td>*</td>");
                 for (var j = 0; j < options.columns.length; j++) {
                     item.push("<td></td>");
                 }
