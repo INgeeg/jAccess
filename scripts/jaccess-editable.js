@@ -17,6 +17,7 @@
     
     $.fn.jaccess = function (options) {
         var self__ = this;
+        var indicator = true;
         if (options) {
             var height = options.height,
             width = options.width,
@@ -29,7 +30,7 @@
             table_total += options.columns[i].width << 0;
         }
         var header_last = options.columns[options.columns.length - 1].width + Math.abs(width - table_total);
-        /////////////////////////
+        //////////////pre load table structure/////////////////////////////
         
         if (!this.hasClass("pre-load")) {
             var self = this;
@@ -60,6 +61,11 @@
                 
             }
         } else console.log("Please load settings");
+        ///////////////////////collect data/////////////////////////////////////////////////
+
+        var CollectData = function (t) {
+            console.log(t.html());
+        }
         ///////////////////////handler/////////////////////////////////////////
         var handler = function () {
             var self_ = $(this),
@@ -71,11 +77,13 @@
                 optionValue = self_.data("map"),
                 lastdrop = table.find(".drop-ind option:selected").text(),
                 lastdropid = table.find(".drop-ind option:selected").val();
+            
+                
 
             if (self_.hasClass("tbl-header-sort"))//sort
             {
                 console.log("header is clicked");
-                return;
+                //return;
             }
 
 
@@ -88,7 +96,7 @@
                 table.find(".drop-ind")
                             .parent()
                             .data("map", lastdropid)
-                            .text(lastdrop);
+                            .html(lastdrop);
 
                 if (table.find("tr:last").index() != index_tr)
                 if (self_.parent().hasClass("selected-tr")) {
@@ -97,16 +105,15 @@
                     table.find("tr").removeClass("selected-tr");
                     self_.parent().addClass("selected-tr");
                 }
-                return;
+                //return;
             }
 
             if (options.columns[index_td - 1].edit) //editable td
             {
-                
-
                 table.find("tr").removeClass("selected-tr");
+                
                 if (cellpos != tmp) {
-
+                    indicator = true;
                     table.find(".cellEditing")
                         .text(newContent)
                         .removeClass("cellEditing");
@@ -141,9 +148,6 @@
                                   changed(text, e);
                               }, 1);
                           });
-
-                       
-
                         $('div.ui-datepicker').css({ fontSize: '10px' });
                     }
 
@@ -153,9 +157,6 @@
                         jd.push("<select style='width:inherit;' class='drop-ind'><option value='-1'></option>");
                         if (options.columns[index_td - 1].drop) {
                             for (var i = 0; i < options.columns[index_td - 1].drop.RowCount; i++) {
-                                //var selected = "";
-                                //if(optionValue==options.columns[index_td - 1].drop.key[i])
-                                    //selected = "selected='selected'";
                                 jd.push(
                                        "<option value = '" + options.columns[index_td - 1].drop.key[i] + "' >" + options.columns[index_td - 1].drop.value[i] + "</option>"
                                        );
@@ -163,19 +164,36 @@
                             self_.html(jd.join(""))
                                 .children()
                                 .val((optionValue ? optionValue : -1))
-                                 .focus()
-                                 .on("keydown", function (e) {
-                                     dropkey(e);
-                                 })
-                            .on("change", function (e) { changed(optionValue,e); });
-                                
+                                .focus()
+                                .on("keydown", function (e) {
+                                    dropkey(e);
+                                })
+                            .on("change", function (e) {
+                                $(this).parent().attr("data-map", $(this).val());
+                                indicator = false;
+                                changed(optionValue, e);
+                            });
                         }
                     }
                     cellpos = index_td + index_tr * 50;
                 }
-                return;
+                //return;
+                /////////////////////////////////////////////////////////////////
+                /////////////////////////////////////////////////////////////////
+                /////////////////////////////////////////////////////////////////
+
+                if (table.find("tr").hasClass("edited-tr")) {
+                    var editedtr = table.find(".edited-tr");
+                    if (indicator) CollectData(editedtr);
+                }
+                if (indicator) table.find(".edited-tr").removeClass("edited-tr");
+                /////////////////////////////////////////////////////////////
+                /////////////////////////////////////////////////////////////////
+                /////////////////////////////////////////////////////////////////
+                /////////////////////////////////////////////////////////////////
+
             }
-            else
+            else  //uneditable
             {
                 table.find(".cellEditing")
                         .text(newContent)
@@ -187,9 +205,8 @@
                             .text(lastdrop);
 
                 console.log("uneditable");
-                return;
+               // return;
             }
-
 
         }
         ///////////////////////////////////////////////////////////////
