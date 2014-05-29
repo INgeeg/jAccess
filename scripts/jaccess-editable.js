@@ -121,7 +121,12 @@
                              .html("<input type='text' value='" + text + "' />")
                              .children()
                              .focus()
-                            .on("keydown", function (e) { textkey(e); });
+                            .on("keydown", function (e) {
+                                textkey(e);
+                                setTimeout(function () {
+                                    changed(text, e);
+                                }, 1);
+                            });
                     }
 
                     if (options.columns[index_td - 1].type == "date") {
@@ -130,7 +135,15 @@
                              .children()
                              .datepicker()
                              .focus()
-                            .on("keydown", function (e) { textkey(e); });
+                          .on("keydown", function (e) {
+                              textkey(e);
+                              setTimeout(function () {
+                                  changed(text, e);
+                              }, 1);
+                          });
+
+                       
+
                         $('div.ui-datepicker').css({ fontSize: '10px' });
                     }
 
@@ -149,9 +162,13 @@
                             } jd.push("</select>");
                             self_.html(jd.join(""))
                                 .children()
-                                .val((optionValue?optionValue:-1))
+                                .val((optionValue ? optionValue : -1))
                                  .focus()
-                                 .on("keydown", function (e) { dropkey(e); });
+                                 .on("keydown", function (e) {
+                                     dropkey(e);
+                                 })
+                            .on("change", function (e) { changed(optionValue,e); });
+                                
                         }
                     }
                     cellpos = index_td + index_tr * 50;
@@ -174,6 +191,14 @@
             }
 
 
+        }
+        ///////////////////////////////////////////////////////////////
+        var changed = function (t, e) {
+            var self = $(e.target);
+            if (t != self.val()) {
+                self.parent().addClass("edited-td");
+                self.parent().parent().addClass("edited-tr");
+            }
         }
         ///////////////////drop handler//////////////////////////////////
         var dropkey = function (e) {
@@ -203,7 +228,6 @@
                         } return;
                     }
             }
-
 
             if (e.keyCode === 39) {   //right 
                 e.preventDefault();
@@ -310,6 +334,8 @@
                 self_tr = self_td.parent(),
                 len = text.length;
 
+            //console.log(String.fromCharCode(e.which));
+            //console.log(e.which);
 
             $('.ui-datepicker').remove();
             if (e.keyCode === 40 || e.keyCode === 13) {   //down and enter
