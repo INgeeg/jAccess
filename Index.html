@@ -28,6 +28,7 @@
                     "ColCount": 2, "RowCount": 153, value:
                     ["PR K-12", "PR 6-12", "PR K-8", "PR 9-12", "PR 6-8", "PR K-5", "AP AS", "AP Disc", "AP OP/FN", "HS Couns", "Library", "Nurse", "Secrt", "Reg", "SPED C", "ESL/GT C", "Grade-5", "Grade-4", "Grade-3", "Grade-2", "Grade-1", "Kinder", "Math", "Eng", "Sci", "SS", "Comp", "LOTE", "Music", "Art", "PE", "SPED", "ESL", "Read Spe", "Aide", "SUB", "District", "Staff", "GR-KG", "GR-01", "GR-02", "GR-03", "GR-04", "4A", "4B", "4C", "4D", "GR-05", "5A", "5B", "5C", "5D", "GR-06", "6A", "6B", "6C", "6D", "6E", "6F", "GR-07", "7A", "7B", "7C", "7D", "GR-08", "8A", "8B", "8C", "8D", "WD-KG", "WD-01", "WD-02", "WD-03", "WD-04", "WD-05", "WD-06", "WD-07", "WD-08", "WD-09", "W2008-09", "W2009-10", "W2010-11", "W2011-12", "W2012-13", "G2007", "G2008", "G2009", "G2010", "G2011", "G2012", "G2013", "G2014", "C2013", "TEMP", "NEW", "APP-KG", "APP-01", "APP-02", "APP-03", "APP-04", "APP-05", "APP-06", "APP-07", "APP-08", "ACC-KG", "ACC-01", "ACC-02", "ACC-03", "ACC-04", "ACC-05", "ACC-06", "ACC-07", "ACC-08", "REG-KG", "REG-01", "REG-02", "REG-03", "REG-04", "REG-05", "REG-06", "REG-07", "REG-08", "TRS-KG", "TRS-01", "TRS-02", "TRS-03", "TRS-04", "TRS-05", "TRS-06", "TRS-07", "TRS-08", "WL-KG", "WL-01", "WL-02", "WL-03", "WL-04", "WL-05", "WL-06", "WL-07", "WL-08", "R-Admin", "Old-2009", "Old-2010", "OLD-2011", "Old-2012", "Old-2013", "NA-07", "NA-08", "J-APP", "Hired", "Other", "Spous", "TRASH"], key: [-55, -54, -53, -52, -51, -50, -46, -45, -44, -43, -39, -38, -37, -36, -35, -34, -25, -24, -23, -22, -21, -20, -19, -18, -17, -16, -15, -14, -13, -12, -11, -10, -9, -7, -6, -5, -1, 0, 1, 10, 20, 30, 40, 41, 42, 43, 44, 50, 51, 52, 53, 54, 60, 61, 62, 63, 64, 65, 66, 70, 71, 72, 73, 74, 80, 81, 82, 83, 84, 300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 328, 329, 330, 331, 332, 347, 348, 349, 350, 351, 352, 353, 354, 373, 399, 401, 500, 501, 502, 503, 504, 505, 506, 507, 508, 600, 601, 602, 603, 604, 605, 606, 607, 608, 620, 621, 622, 623, 624, 625, 626, 627, 628, 700, 701, 702, 703, 704, 705, 706, 707, 708, 750, 751, 752, 753, 754, 755, 756, 757, 758, 800, 809, 810, 811, 812, 813, 827, 828, 900, 921, 950, 951, 1000]
                 }
+
             };
             
 
@@ -37,7 +38,7 @@
                 table: "LoadStatus",
                 config: { type: ["text","note","date","drop"]},
                 columns: [
-                    { width: 80, header: "Date", map: "Date", mask: "Shortname", id: "Person", align: "center", edit: true, type: "text" },
+                    { width: 80, header: "Date", map: "Date", mask: "Shortname", id: "Person", align: "center", edit: true, type: "text",extra:"Shortname"},
                     { width: 80, header: "Status", map: "Status", mask: "Shortname", edit: true, type: "drop", drop: data.LoadDrop },
                     { width: 100, header: "Note", map: "Note", edit: true,type:"text" }
                 ]
@@ -45,7 +46,13 @@
 
 
             $("#table1").jaccess(table1_settings);
-            $("#table1").jaccess(table1_settings).load(data);
+            $("#table1").jaccess(table1_settings).load($.extend(data, {mode:true}));
+            
+
+            $("#testus").on("click", function () {
+                $("#table1").jaccess(table1_settings).load($.extend(data, { mode: false }));
+            });
+
         });
 
 
@@ -68,6 +75,9 @@
 <body>
 
     <div id="table1"></div>
+    <input type="button" value="test" id="testus"/>
+
+ 
 
 
 </body>

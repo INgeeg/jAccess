@@ -62,6 +62,52 @@
                 
             }
         } else console.log("Please load settings");
+
+        //////////////////////public/////////////////////////////////////////////
+        var load = function (data) {
+           
+            if (options) {
+                    if (data) {
+                        var data = data[options.table];
+                        item = [];
+                        var count = 1;
+                        for (var i = 0; i < data.RowCount; i++) {
+                            item.push("<tr id='" + (options.columns[0].id ? data[options.columns[0].id][i] : "") + "'><td>" + count + "</td>");
+                            for (var j = 0; j < options.columns.length; j++) {
+                                item.push("<td " + (options.columns[j].mask ? "data-map='" + data[options.columns[j].map][i] + "'" : "") +
+                                     (options.columns[j].extra ? " data-extra='" + data[options.columns[j].extra][i] + "'" : "") +
+                                    ">" +
+                                    (options.columns[j].mask ? data[options.columns[j].mask][i]
+                                    : data[options.columns[j].map][i]) +
+                                    "</td>");
+                            }
+                            item.push("</tr>");
+                            count++;
+                        }
+
+                        item.push("<tr class='lasttr'><td>*</td>");
+                        for (var j = 0; j < options.columns.length; j++) {
+                            item.push("<td></td>");
+                        }
+                        item.push("</tr>");
+                        table.find("tr:gt(0)").remove();
+                        table.find("tr:first").after(item.join(""));
+                        table.off("click", "td");
+                        table.on("click", "td", handler);
+                        table.parent().parent().off("click", ".tbl-header-sort");
+                        table.parent().parent().on("click", ".tbl-header-sort", handler);
+
+                        $(".datagrid-con").scroll(function () {
+                            $(".datagrid").scrollLeft($(this).scrollLeft());
+                        });
+                    }
+
+                    else { console.log("No data was loaded;"); }
+
+               }
+               else { console.log("Please load settings;"); }
+        }
+
         ///////////////////////collect data/////////////////////////////////////////////////
 
         var CollectData = function (t) {
@@ -73,17 +119,18 @@
                         i: index,
                         m: (self.data("map") ? self.data("map") : null),
                         v: self.text(),
-                       ex: (self.data("ext") ? self.data("ext") : null)
+                        ex: (self.data("extra") ? self.data("extra") : null)
                     };
                 }
             });
-            d["p"] = (t.attr("id")?t.attr("id"):null);
+            d["p"] = (t.attr("id") ? t.attr("id") : null);
             d["n"] = t.hasClass("lasttr");
             d["t"] = t.parent().parent().attr("id");
             console.log(d);
         }
         ///////////////////////handler/////////////////////////////////////////
         var handler = function () {
+            
             var self_ = $(this),
                 index_td = self_.index(),
                 index_tr = self_.parent().index(),
@@ -95,7 +142,7 @@
                 lastdropid = table.find(".drop-ind option:selected").val();
             
                 
-
+            
             if (self_.hasClass("tbl-header-sort"))//sort
             {
                 console.log("header is clicked");
@@ -138,7 +185,7 @@
                             .parent()
                             .data("map", lastdropid)
                             .text(lastdrop);
-
+                    
                     if (options.columns[index_td - 1].type == "text" || options.columns[index_td - 1].type == "note") {
                         self_.addClass("cellEditing")
                              .html("<input type='text' value='" + text + "' />")
@@ -196,16 +243,12 @@
                 //return;
                 /////////////////////////////////////////////////////////////////
                 /////////////////////////////////////////////////////////////////
-                /////////////////////////////////////////////////////////////////
-
                 if (table.find("tr").hasClass("edited-tr")) {
                     var editedtr = table.find(".edited-tr");
                     if (indicator) CollectData(editedtr);
                 }
                 if (indicator) table.find(".edited-tr").removeClass("edited-tr");
                 /////////////////////////////////////////////////////////////
-                /////////////////////////////////////////////////////////////////
-                /////////////////////////////////////////////////////////////////
                 /////////////////////////////////////////////////////////////////
 
             }
@@ -320,44 +363,7 @@
                 }
             }
 
-        }
-        //////////////////////public/////////////////////////////////////////////
-        var load = function (data) {
-        if (options) {
-            if (data) {
-                var data = data[options.table];
-                item = [];
-                var count = 1;
-                for (var i = 0; i < data.RowCount; i++) {
-                    item.push("<tr id='" + (options.columns[0].id ? data[options.columns[0].id][i] : "") + "'><td>" + count + "</td>");
-                    for (var j = 0; j < options.columns.length; j++) {
-                        item.push("<td " + (options.columns[j].mask ? "data-map='"+data[options.columns[j].map][i] +"'" : "") + ">" +
-                            (options.columns[j].mask ? data[options.columns[j].mask][i]
-                            : data[options.columns[j].map][i]) +
-                            "</td>");
-                    }
-                    item.push("</tr>");
-                    count++;
-                }
-
-                item.push("<tr class='lasttr'><td>*</td>");
-                for (var j = 0; j < options.columns.length; j++) {
-                    item.push("<td></td>");
-                }
-                item.push("</tr>");
-
-                table.find("tr:first").after(item.join(""));
-                table.on("click", "td", handler);
-                table.parent().parent().on("click", ".tbl-header-sort", handler);
-
-                $(".datagrid-con").scroll(function () {
-                 $(".datagrid").scrollLeft($(this).scrollLeft());
-                });
-            }
-            else { console.log("No data was loaded;"); }
-        } else { console.log("Please load settings;"); }
-        }
-       
+        }    
         ////////////////////key handler///////////////////////////////////
         var textkey = function (e) {
             var self_ = $(e.target),
@@ -366,9 +372,6 @@
                 text = self_.val(),
                 self_tr = self_td.parent(),
                 len = text.length;
-
-            //console.log(String.fromCharCode(e.which));
-            //console.log(e.which);
 
             $('.ui-datepicker').remove();
             if (e.keyCode === 40 || e.keyCode === 13) {   //down and enter
